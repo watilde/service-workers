@@ -26,6 +26,8 @@ self.addEventListener('fetch', function(event) {
   if (request.mode === 'navigate' || isRequestMethodGET) {
     event.respondWith(
       fetch(createRequestWithCacheBusting(event.request.url)).catch(function(error) {
+        console.log(123123)
+        console.log(event.request.url)
         console.log('OFFLINE: Returning offline page.', error);
         return caches.match(offlineUrl);
       })
