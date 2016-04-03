@@ -26,6 +26,7 @@ self.addEventListener('fetch', function(event) {
   if (request.mode === 'navigate' || isRequestMethodGET) {
     event.respondWith(
       fetch(request).catch(function(error) {
+        console.log('request.url:', request.url)
         return caches.match(request.url);
       })
     );
