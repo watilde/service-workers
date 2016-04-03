@@ -20,7 +20,7 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('fetch', function(event) {
   var request = event.request,
-    headerIncludesHTML = request.headers.get('accept').includes('text/html'),
+    // headerIncludesHTML = request.headers.get('accept').includes('text/html'),
     isRequestMethodGET = request.method === 'GET';
 
   if (request.mode === 'navigate' || isRequestMethodGET) {
