@@ -20,40 +20,20 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('fetch', function(event) {
   var request = event.request,
-    // headerIncludesHTML = request.headers.get('accept').includes('text/html'),
+    headerIncludesHTML = request.headers.get('accept').includes('text/html'),
     isRequestMethodGET = request.method === 'GET';
 
   if (request.mode === 'navigate' || isRequestMethodGET) {
     event.respondWith(
-      fetch(createRequestWithCacheBusting(event.request.url)).catch(function(error) {
-        console.log(event.request.url)
-        console.log('OFFLINE: Returning offline page.', error);
-        return caches.match(offlineUrl);
+      fetch(request).catch(function(error) {
+        return caches.match(request.url);
       })
     );
   } else {
-    event.respondWith(caches.match(event.request)
+    event.respondWith(caches.match(request)
         .then(function (response) {
-        return response || fetch(event.request);
+        return response || fetch(request);
       })
     );
   }
 });
-
-function createRequestWithCacheBusting(url) {
-  var request,
-    cacheBustingUrl;
-
-  request = new Request(url,
-    {cache: 'reload'}
-  );
-
-  if ('cache' in request) {
-    return request;
-  }
-
-  cacheBustingUrl = new URL(url, self.location.href);
-  cacheBustingUrl.search += (cacheBustingUrl.search ? '&' : '') + 'cachebust=' + Date.now();
-
-  return new Request(cacheBustingUrl);
-}
