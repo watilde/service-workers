@@ -10,7 +10,7 @@ function initializeBookmarks() {
   form.addEventListener('submit', function( event ) {
     var text = newBookmark.value;
     if (text !== '') {
-      articles.innerHTML += '<li>' + text + '</li>';
+      articles.innerHTML += '<li><a href="' + text +'"">' + text + '</a></li>';
       addUrlToCache(text);
       newBookmark.value = '';
       newBookmark.focus();
