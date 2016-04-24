@@ -44,7 +44,7 @@ function replayGoogleAnalyticsRequests(idbInstance, idbStore, throttle) {
           fetch(requestUrl).then(function(response) {
             if (response.status < 400) {
               getIDBObjectStore(idbInstance, idbStore, RW).delete(savedRequest.url);
-              console.log('%c ♫ REPLAY: %s', 'color: #1C99D8', ‘success’);
+              console.log('%c ♫ REPLAY: %s', 'color: #1C99D8', 'success');
             } else {
               console.error('♫ REPLAY: fail -', response);
             }
@@ -56,4 +56,3 @@ function replayGoogleAnalyticsRequests(idbInstance, idbStore, throttle) {
     }
   };
 }
-

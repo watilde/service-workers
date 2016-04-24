@@ -38,4 +38,3 @@ document.querySelector('#resetButton').addEventListener('click',
 function showImages() {
   document.querySelector('#images').style.display = 'block';
 }
-
